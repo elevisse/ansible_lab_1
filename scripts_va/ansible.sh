@@ -18,5 +18,6 @@ echo 'host_key_checking = False' >> /etc/ansible/ansible.cfg
 echo "node1" > /etc/ansible/hosts
 echo "node2" >> /etc/ansible/hosts
 su - ansible -c "ssh-keygen -f /home/ansible/.ssh/id_rsa -q -P ''"
+su - ansible -c "ssh-keyscan -H node1 >> /home/ansible/.ssh/known_hosts"
 echo "vagrant" > /home/ansible/password.txt
-su - ansible -c "sshpass -f password.txt ssh-copy-id node1; true"
+su - ansible -c "sshpass -f password.txt ssh-copy-id node1 -f; true"
