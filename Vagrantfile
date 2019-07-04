@@ -2,18 +2,6 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.define "ansible_linux" do |ansible|
-	ansible.vm.box = "debian/buster64"
-	ansible.vm.hostname = "ansible"
-	ansible.vm.network "private_network", ip: "10.0.3.153", virtualbox__intnet: "lab_ansible"
-	ansible.vm.synced_folder "Ansible", "/tmp/ansible/"
-	ansible.vm.provider "virtualbox" do |ansible_vb|
-      ansible_vb.cpus = 2
-      ansible_vb.memory = 2048
-      ansible_vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
-    end
-	ansible.vm.provision "shell", path: "scripts_va/ansible.sh"
-  end
   config.vm.define "node1" do |node1|
 	node1.vm.box = "debian/buster64"
 	node1.vm.hostname = "node1"
@@ -34,5 +22,17 @@ Vagrant.configure("2") do |config|
       node2_vb.memory = 2048
       node2_vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
     end
+  end
+  config.vm.define "ansible_linux" do |ansible|
+	ansible.vm.box = "debian/buster64"
+	ansible.vm.hostname = "ansible"
+	ansible.vm.network "private_network", ip: "10.0.3.153", virtualbox__intnet: "lab_ansible"
+	ansible.vm.synced_folder "Ansible", "/tmp/ansible/"
+	ansible.vm.provider "virtualbox" do |ansible_vb|
+      ansible_vb.cpus = 2
+      ansible_vb.memory = 2048
+      ansible_vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
+    end
+	ansible.vm.provision "shell", path: "scripts_va/ansible.sh"
   end
 end
