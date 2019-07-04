@@ -23,6 +23,7 @@ Vagrant.configure("2") do |config|
       node1_vb.memory = 2048
       node1_vb.customize ["modifyvm", :id, "--nicpromisc2", "allow-all"]
     end
+	node1.vm.provision "shell", path: "scripts_va/node.sh"
   end
   config.vm.define "node2" do |node2|
 	node2.vm.box = "senglin/win-10-enterprise-vs2015community"
