@@ -1,0 +1,9 @@
+#!/bin/sh
+apt-get update
+apt install -y sudo
+useradd ansible -m -s "/bin/bash"
+usermod -aG sudo ansible
+passwd ansible << EOF
+vagrant
+vagrant
+EOF
